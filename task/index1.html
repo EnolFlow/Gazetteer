@@ -1,0 +1,183 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>AJAX/PHP/CURL/JSON </title>
+		<meta name="description" content="AJAX/PHP/CURL/JSON ">
+		<meta name="author" content="Alexandru Beraru">
+		<link rel="stylesheet" href="libs/css/styles.css">
+
+	</head>
+
+	<body>
+		<h2>Ajax calls</h2>
+
+<table>
+  <tr>
+    <th>Api name</th>
+    <th>Api description</th>
+    <th>Click Run</th>
+  </tr>
+  <tr>
+    <td>Ocean</td>
+    <td> Returns the ocean or sea for the given latitude/longitude<br>
+		<input type="number" id="selLat" name="latitude"><br>
+
+		<input type="number" id="selLng" name="longitude">
+
+		<br><br>
+
+		<div id="div1">			
+			<table>
+				<tr>
+					<td>
+					distance: 
+					</td>
+					<td id="txtDistance">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						geonameid: 
+					</td>
+					<td id="txtGeonameId">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Name: 
+					</td>
+					<td id="txtName">
+						
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</td>	
+	<td><button id="btnRun">Submit</button></td>	
+        <br><br>
+		
+   <tr>
+    <td> Recent Weather Observation</td>
+    <td> Returns recent weather observation
+		<br>
+		
+        <input type="number" id="typeNorth" name="north"><br>
+        <input type="number" id="typeSouth" name="south"><br>
+        <input type="number" id="typeEast" name="east"><br>
+        <input type="number" id="typeWest" name="west"><br>
+        
+		<br><br>
+
+		<div id="div2">	
+			<table>
+				<tr>
+					<td>
+					Clouds: 
+					</td>
+					<td id="txtClouds">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Temperature: 
+					</td>
+					<td id="txtTemperature">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Humidity: 
+					</td>
+					<td id="txtHumidity">
+						
+					</td>
+				</tr>
+			</table>
+        </div>
+	</td>
+    <td><button id="btnRun1">Submit</button></td>
+   </tr>
+   <tr>
+    <td>Country Info</td>
+    <td> Returns Country information
+		<br>
+		<select id="selCountry">
+			<option value="GB">Great Britain</option>
+			<option value="FR">France</option>
+			<option value="DE">Germany</option>
+			<option value="US">USA</option>
+		</select>
+
+		<select id="selLanguage">
+			<option value="en">English</option>
+			<option value="fr">Francais</option>
+			<option value="de">Deutsche</option>
+		</select>
+
+		<br><br>
+
+		<div id="div3">	
+			<table>
+				<tr>
+					<td>
+						Continent: 
+					</td>
+					<td id="txtContinent">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Capital: 
+					</td>
+					<td id="txtCapital">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Languages: 
+					</td>
+					<td id="txtLanguages">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Population: 
+					</td>
+					<td id="txtPopulation">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Area (km<sup>2</sup>): 
+					</td>
+					<td id="txtArea">
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+    </td>
+    <td><button id="btnRun2">Submit</button></td>
+</table>
+		<script  src="libs/js/jquery-2.2.3.min.js"></script>
+		<script  src="libs/js/script1.js"></script>
+	</body>
+</html>
