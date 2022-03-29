@@ -1,0 +1,195 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>AJAX/PHP/CURL/JSON </title>
+		<meta name="description" content="AJAX/PHP/CURL/JSON ">
+		<meta name="author" content="Alexandru Beraru">
+		<link rel="stylesheet" href="libs/css/styles.css">
+
+	</head>
+
+	<body>
+		<h2>Ajax calls</h2>
+
+<table>
+  <tr>
+    <th>Api name</th>
+    <th>Api description</th>
+    <th>Click Submit</th>
+  </tr>
+  <tr>
+    <td>Ocean</td>
+    <td> Returns the ocean or sea for the given latitude/longitude<br>
+        <label for="selLat">Enter  Latitude</label><br>
+		<input type="number" id="selLat" name="latitude" placeholder="40.78343"><br>
+        <label for="selLat">Enter  Longitude</label><br>
+		<input type="number" id="selLng" name="longitude" placeholder="-43.96625">
+
+		<br><br>
+
+		<div id="div1">			
+			<table>
+				<tr>
+					<td>
+					distance: 
+					</td>
+					<td id="txtDistance">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						geonameid: 
+					</td>
+					<td id="txtGeonameId">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Name: 
+					</td>
+					<td id="txtName">
+						
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</td>	
+	<td><button id="btnRun">Submit</button></td>	
+        <br><br>
+		
+   <tr>
+    <td> Recent Weather Observation</td>
+    <td> Returns recent weather observation
+		<br>
+        <label for="typeNorth">Enter North</label>
+        <input type="number" id="typeNorth" name="north" placeholder="44.1"><br>
+        <label for="typeSouth">Enter  South</label>
+        <input type="number" id="typeSouth" name="south" placeholder="-9.9"><br>
+        <label for="typeEast">Enter  East</label>
+        <input type="number" id="typeEast" name="east" placeholder="-22.4"><br>
+        <label for="typeWest">Enter  West</label>
+        <input type="number" id="typeWest" name="west" placeholder="55.2"><br>
+        
+		<br><br>
+
+		<div id="div2">	
+			<table>
+				<tr>
+					<td>
+					Clouds: 
+					</td>
+					<td id="txtClouds">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Temperature: 
+					</td>
+					<td id="txtTemperature">
+						
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						Humidity: 
+					</td>
+					<td id="txtHumidity">
+						
+					</td>
+				</tr>
+			</table>
+        </div>
+	</td>
+    <td><button id="btnRun1">Submit</button></td>
+   </tr>
+   <tr>
+    <td>Find nearest Address</td>
+    <td> Returns the nearest address for the given latitude/longitude<br>
+		
+		<label for="lati">Enter  Latitude</label><br>
+		<input type="number" id="lati" name="latitud" placeholder="52.358"><br>
+        <label for="longi">Enter  Longitude</label><br>
+		<input type="number" id="longi" name="longitud" placeholder="4.881">
+
+		<details>
+			<summary>Supported Countries</summary>
+			<p> 1	AT	Austria
+				2	AU	Australia
+				3	AX	▒land
+				4	CC	Cocos 
+				5	CH	Switzerland	
+				6	CX	Christmas Island	
+				7	CZ	Czechia	
+				8	DK	Denmark	
+				9	EE	Estonia	
+				10	ES	Spain	
+				11	FI	Finland	
+				12	FR	France	
+				13	GF	French Guiana	
+				14	GP	Guadeloupe	
+				15	IS	Iceland	
+				16	LU	Luxembourg	
+				17	MQ	Martinique	
+				18	NF	Norfolk Island
+				19	NL	Netherlands	
+				20	NO	Norway	
+				21	PL	Poland	
+				22	PR	Puerto Rico	
+				23	RE	R▒union	
+				24	SG	Singapore
+				25	SI	Slovenia	
+				26	SJ	Svalbard and Jan Mayen	
+				27	SK	Slovakia	
+				28	US	United States	
+				29	YT	Mayotte</p>
+		  </details>
+		<br>
+
+		<div id="div3">	
+			<table>
+				<tr>
+					<td>
+						Locality: 
+					</td>
+					<td id="txtLocality">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Street: 
+					</td>
+					<td id="txtStreet">
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HouseNumber: 
+					</td>
+					<td id="txtHouseNumber">
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+    </td>
+    <td><button id="btnRun2">Submit</button></td>
+</table>
+		<script  src="libs/js/jquery-2.2.3.min.js"></script>
+		<script  src="libs/js/script1.js"></script>
+	</body>
+</html>
