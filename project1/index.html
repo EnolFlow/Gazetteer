@@ -10,11 +10,12 @@
   <title>The Gazetteer</title>
   <script src="https://kit.fontawesome.com/a95212fe6a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="libs/css/leaflet.css" >
-  <link rel="stylesheet" href="libs/css/style.css" >
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="icon" type="image/x-icon" href="libs/css/images/favicon.ico.png">
  <link rel="stylesheet" href="dist/MarkerCluster.css">
  <link rel="stylesheet" href="dist/MarkerCluster.Default.css">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+ <link rel="stylesheet" href="libs/css/style.css" >
   <body>
     <div id="loader"></div>
       
@@ -22,8 +23,8 @@
           <div class="navbar-header"> 
             <div class="navbar-icon-container position-relative">        
         <a class="navbar-brand " href="#">Gazetteer</a>
-        <select class="form-select form-select-sm w-50 position-absolute bottom-0 start-50 translate-middle-x mt-2" id="country_list" onchange="zoomToCountry()">
-          <option value="">Select Country</option>
+        <select class="form-select form-select-md w-25 position-absolute bottom-0 start-50 translate-middle-x mt-2" id="country_list" onchange="zoomToCountry()">
+          <option value="" style="text-align: center;">Select Country</option>
         </select>
       </div>
     </div>
@@ -32,52 +33,47 @@
     <div id="map">
     </div>
 </div>
-<button id="button" type="button" class="btn btn-info btn-sm shadow p-3 mb-5" data-bs-toggle="modal" data-bs-target="#country_news">
-  <i class="fa-solid fa-newspaper fa-2xl"></i>
-</button>
-<button id="button1" type="button" class="btn btn-warning btn-sm shadow p-3 mb-5" data-bs-toggle="modal" data-bs-target="#country_weather">
-  <i class="fa-solid fa-cloud fa-2xl"></i>
-</button>
-<button id="button2" type="button" class="btn btn-danger btn-sm shadow p-3 mb-5" data-bs-toggle="modal" data-bs-target="#country_information">
-  <i class="fa-solid fa-circle-info fa-2xl"></i>
-</button>
-
 
 <!-- Modal -->
 <div class="modal fade" id="country_information" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="country_name"></h5>
+        <h5 class="modal-title" id="country_name" ></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
           <tr>
             <th>Capital</th>
-            <td id="country_capital"></td>
+            <td id="country_capital" colspan="2" style="text-align: center;"></td>
           </tr>
           <tr>
             <th>Population</th>
-            <td id="country_population"></td>
+            <td id="country_population" colspan="2" style="text-align: center;"></td>
           </tr>
           <tr>
             <th>Flag</th>
-            <td>
-              <img src="" style="height: 50px" id="country_flag" />
+            <td colspan="2">
+              <img src="" style="height: 100px" id="country_flag" />
             </td>
           </tr>
           <tr>
-            <th>Currency</th>
+            <th>Currency exchange rate</th>
             <td id="country_currency"></td>
+            <td id="currency_exchange"></td>
           </tr>
           <tr>
             <th>Wikipedia Page</th>
-            <td>
-              <a href="" target="_blank" class="text-dark" id="country_wikipedia">Click Here</a>
+            <td colspan="2">
+              <a href="" target="_blank" class="text-dark" id="country_wikipedia" >Click Here</a>
             </td>
           </tr>
+          <tr>
+            <td id="summary" colspan="3"></td>
+          </tr>
         </table>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -148,6 +144,7 @@
 
  <script src="libs/js/leaflet.js"></script> 
  <script src="dist/leaflet.markercluster.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
  <script src="libs/js/jquery-2.2.3.min.js"> </script>
  <script src='bootstrap/js/bootstrap.min.js'></script>
  <script src="libs/js/script.js"></script> 
