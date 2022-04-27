@@ -52,25 +52,7 @@ body{
   color: #FFFFFF;
 }
 
-#button {
-  position: absolute;
-  top: 200px;
-  right: 2px;
-  z-index: 400;
-}
 
-#button1 {
-  position: absolute;
-  top: 125px;
-  right: 2px;
-  z-index: 400;
-}
-#button2 {
-  position: absolute;
-  top: 50px;
-  right: 2px;
-  z-index: 400;
-}
 
 #weather_image{
 height: 100px;
@@ -78,4 +60,33 @@ width: 100px;
 position: absolute;
 top: -20px;
 left: 150px;
+}
+
+.info{
+  font-size: 15px;
+}
+.news{
+  font-size: 15px;
+}
+.weather{
+  font-size: 30px;
+}
+
+.leaflet-touch .leaflet-bar {
+  border: 0px solid transparent;
+
+}
+
+.leaflet-touch .leaflet-bar button {
+  position: relative;
+  bottom: 543px;
+  width: 54px;
+  height: 29px;
+  line-height: 30px;
+}
+.fa{
+  font-size: 1.5em;
+}
+#summary{
+  font-family: sans-serif;
 }
