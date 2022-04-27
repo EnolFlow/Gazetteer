@@ -7,14 +7,26 @@ let lat;
 let lng;
 let markers;
 let country_code;
+
+   
+
  map = L.map('map',{zooomcontrol:false,attributionControl: false}).setView([51.505, -0.09], 13);
 
   layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}',
   {foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
 
-L.control.scale().setPosition("bottomleft").addTo(map);
-map.zoomControl.setPosition("bottomleft");
+  
+  L.easyButton( 'fa-info', function(){
+    $('#country_information').modal('show')  }).setPosition("bottomright").addTo(map);
+    L.easyButton( 'fa-newspaper', function(){
+      $('#country_news').modal('show')  }).setPosition("bottomright").addTo(map);
+      L.easyButton( 'fa-cloud', function(){
+        $('#country_weather').modal('show')  }).setPosition("bottomright").addTo(map);
 
+
+
+  L.control.scale().setPosition("bottomleft").addTo(map);
+map.zoomControl.setPosition("bottomleft");
 
 boundary = new L.geoJSON().addTo(map);
 
@@ -266,7 +278,9 @@ function country_information(country_code) {
      }
      lat = infor.latlng[0];
      lng = infor.latlng[1];
-   let country_capital = infor.capital[0].toLowerCase();
+     let country_capital = infor.capital[0].toLowerCase();
+     let countryN = infor.name.common.split(" ").join("");
+ 
   
       $("#country_name").html(infor.name.common);
       $("#country_capital").html(infor.capital[0]);
@@ -278,7 +292,9 @@ function country_information(country_code) {
         "https://en.wikipedia.org/wiki/" + infor.name.common
       );
       weather_information(lat,lng);
-      news_information( country_capital)
+      news_information( country_capital);
+      wiki_summary( countryN);
+      currency_exchange(currency)
     },
   });
 }
@@ -317,7 +333,6 @@ function news_information( country_capital) {
     success: function (json) {
       let news_info  = $.parseJSON(json);
     const data = news_info.articles;
-    console.log(data)
     for (let i = 0; i < data.length; i++) {
       $("#news_data").append(news_card(data[i]));
     }
@@ -340,3 +355,42 @@ function news_card(data) {
     '" target="_blank" class="btn btn-primary">Details</a> </div> </div>';
   return card;
 }
+
+function wiki_summary( countryN) {
+  $.ajax({
+    url: "libs/php/wikiSummary.php",
+    type: "GET",
+    data: {
+     countryN: countryN,
+    },
+    success: function (json) {
+      let data = JSON.parse(json);
+    let n = "";
+     for (const x in  data.query.pages) {
+      n += x ;
+     }
+     let summary = data.query.pages[n].extract;
+     $("#summary").html(summary);
+     
+    },
+  });
+}
+
+function currency_exchange(currency) {
+  $.ajax({
+    url: "libs/php/currencyEx.php",
+    type: "GET",
+    success: function (json) {
+      let data = JSON.parse(json);
+      let rates = data.rates;
+      let keys = Object.entries(rates);
+    for (let i = 0; i < keys.length; i++) {
+     if (keys[i][0] == currency) {
+       let val = keys[i][1]
+       $("#currency_exchange").html(val );
+     }
+    }
+    },
+  });
+}
+
