@@ -22,6 +22,10 @@ let country_code;
       $('#country_news').modal('show')  }).setPosition("bottomright").addTo(map);
       L.easyButton( 'fa-cloud', function(){
         $('#country_weather').modal('show')  }).setPosition("bottomright").addTo(map);
+        L.easyButton( 'fa-wikipedia-w', function(){
+          $('#country_wiki').modal('show')  }).setPosition("bottomright").addTo(map);
+          L.easyButton( ' fa-dollar', function(){
+            $('#currency').modal('show')  }).setPosition("bottomright").addTo(map);
 
 
 
@@ -370,8 +374,8 @@ function wiki_summary( countryN) {
       n += x ;
      }
      let summary = data.query.pages[n].extract;
-     $("#summary").html(summary);
-     
+     $("#wiki_i").html(summary);
+     $("#name").html(countryN);
     },
   });
 }
@@ -387,7 +391,8 @@ function currency_exchange(currency) {
     for (let i = 0; i < keys.length; i++) {
      if (keys[i][0] == currency) {
        let val = keys[i][1]
-       $("#currency_exchange").html(val );
+       $("#cur").html(keys[i][0] );
+       $("#rate").html(val );
      }
     }
     },
