@@ -46,31 +46,27 @@
         <table class="table table-bordered">
           <tr>
             <th>Capital</th>
-            <td id="country_capital" colspan="2" style="text-align: center;"></td>
+            <td id="country_capital" style="text-align: center;"></td>
           </tr>
           <tr>
             <th>Population</th>
-            <td id="country_population" colspan="2" style="text-align: center;"></td>
+            <td id="country_population"  style="text-align: center;"></td>
           </tr>
           <tr>
             <th>Flag</th>
-            <td colspan="2">
+            <td>
               <img src="" style="height: 100px" id="country_flag" />
             </td>
           </tr>
           <tr>
-            <th>Currency exchange rate</th>
+            <th>Currency</th>
             <td id="country_currency"></td>
-            <td id="currency_exchange"></td>
           </tr>
           <tr>
             <th>Wikipedia Page</th>
-            <td colspan="2">
+            <td >
               <a href="" target="_blank" class="text-dark" id="country_wikipedia" >Click Here</a>
             </td>
-          </tr>
-          <tr>
-            <td id="summary" colspan="3"></td>
           </tr>
         </table>
         
@@ -86,7 +82,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <h5 class="modal-title">Weather</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -126,11 +122,54 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="country_name"></h5>
+        <h5 class="modal-title">News</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="news_data">
        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Wiki data -->
+<div class="modal fade" id="country_wiki" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="name"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="wiki_i">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Currency data -->
+<div class="modal fade" id="currency" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Current exchange rate</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Country Currency</th>
+            <td id="cur"></td>
+          </tr>
+          <tr>
+            <th>Rate</th>
+            <td id="rate"></td>
+          </tr>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
