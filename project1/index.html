@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+ <head>
   <meta charset="UTF-8" />
   <meta name="description" content="Country Profiler" />
   <meta name="keywords" content="HTML, Bootstrap, Leaflet, AJAX, PHP" />
   <meta name="author" content="Alexandru Beraru" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>The Gazetteer</title>
-  <script src="https://kit.fontawesome.com/a95212fe6a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="leaflet/Leaflet.EasyButton-master/src/easy-button.css" >
   <link rel="stylesheet" href="libs/css/leaflet.css" >
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="icon" type="image/x-icon" href="libs/css/images/favicon.ico.png">
  <link rel="stylesheet" href="dist/MarkerCluster.css">
  <link rel="stylesheet" href="dist/MarkerCluster.Default.css">
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
  <link rel="stylesheet" href="libs/css/style.css" >
-</head>
+ </head>
   <body>
     <div id="loader"></div>
-      
-         <div class="container-fluid bg-black fixed-top">
-          <div class="navbar-header"> 
-            <div class="navbar-icon-container position-relative">        
-        <a class="navbar-brand " href="#">Gazetteer</a>
-        <select class="form-select form-select-md w-25 position-absolute bottom-0 start-50 translate-middle-x mt-2" id="country_list" onchange="zoomToCountry()">
-          <option value="" style="text-align: center;">Select Country</option>
+    
+        <select class="form-select form-select-md w-25 shadow-lg " id="country_list" onchange="zoomToCountry()" style="text-align: center;">
+          <option value="" >Select Country</option>
         </select>
-      </div>
-    </div>
-  </div>  
+  
 <div id="map-holder">
     <div id="map">
     </div>
@@ -37,134 +30,160 @@
 
 <!-- Modal -->
 <div class="modal fade" id="country_information" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="country_name" ></h5>
+      <div class="modal-header bg-primary" style="text-align: center;">
+        <h5 class="modal-title text-white" id="country_name" ></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
+      <div class="modal-body" id="modal-info">
+        <table class="table table-striped" id="table-info" >
           <tr>
-            <th>Capital</th>
-            <td id="country_capital" style="text-align: center;"></td>
+            <th><i class="fa-solid fa-city"></i></th>
+            <td id="country_capital"></td>
           </tr>
           <tr>
-            <th>Population</th>
-            <td id="country_population"  style="text-align: center;"></td>
-          </tr>
-          <tr>
-            <th>Flag</th>
-            <td>
-              <img src="" style="height: 100px" id="country_flag" />
+            <td colspan="2" >
+              <img src=""  id="country_flag" />
             </td>
           </tr>
           <tr>
-            <th>Currency</th>
+            <th><i class="fa-solid fa-person"></i></th>
+            <td id="country_population"></td>
+          </tr>
+          <tr>
+            <th><i class="fa-solid fa-wallet"></i></th>
             <td id="country_currency"></td>
           </tr>
           <tr>
             <th>Wikipedia Page</th>
             <td >
-              <a href="" target="_blank" class="text-dark" id="country_wikipedia" >Click Here</a>
+              <button type="button" class="btn btn-primary "><a href="" target="_blank" class="text-dark" id="country_wikipedia" ><b class="text-white">Click Here</b></a></button>
             </td>
           </tr>
         </table>
         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Weather data -->
 <div class="modal fade" id="country_weather" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Weather</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+        <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
       <div class="modal-body">
-        <div class="card">
-          <img src="" class="card-img-top"  id="weather_image">
-          <div class="card-body">
-            <h5 class="card-title" id="weather_descr"></h5>
+     
+      
+              <div class="card mb-4 gradient-custom">
+                <div class="card-body p-4">
+      
+                  <div id="demo1" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel inner -->
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <div class="d-flex justify-content-between mb-4 pb-2">
+                          <div>
+                            <h2 class="display-2" id="temp"><strong></strong></h2>
+                            <p class="text-muted mb-0" id="weather_descr"></p>
+                            <p class="text-muted mb-0"id="weather_capi"></p>
+                          </div>
+                          <div>
+                            <img src="" id="weather_image"
+                              width="150px">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                </div>
+              </div>
+      
+             
+      
+              <div class="card"">
+                <div class="card-body p-4">
+                    <!-- Carousel inner -->
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
+                          <div class="flex-column">
+                            <strong><p class="small" id="tempmax"></p></strong>
+                            <p class="small" id="tempmin"></p>
+                            <img src="" id="weather_img" style="width: 50px;">
+                            <strong> <p class="mb-0" id="today"></p></strong>
+                          </div>
+                          <div class="flex-column">
+                            <strong><p class="small" id="tempmax2"></p></strong>
+                            <p class="small" id="tempmin2"></p>
+                            <img src="" id="weather_img2" style="width: 50px;">
+                            <strong> <p class="mb-0" id="today2"></p></strong>
+                          </div>
+                          <div class="flex-column">
+                            <strong><p class="small" id="tempmax3"></p></strong>
+                            <p class="small" id="tempmin3"></p>
+                            <img src="" id="weather_img3" style="width: 50px;">
+                            <strong> <p class="mb-0" id="today3"></p></strong>
+                          </div>
+                          <div class="flex-column">
+                            <strong><p class="small" id="tempmax4"></p></strong>
+                            <p class="small" id="tempmin4"></p>
+                            <img src="" id="weather_img4" style="width: 50px;">
+                            <strong> <p class="mb-0" id="today4"></p></strong>
+                          </div>
+                         
+                        </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <table class="table table-bordered">
-            <tr>
-              <th>Temperature</th>
-              <td id="temp"></td>
-            </tr>
-            <tr>
-              <th>Feels like</th>
-              <td id="feels_like"></td>
-            </tr>
-            <tr>
-              <th>Humidity</th>
-              <td id="humidity"></td>
-            </tr>
-            <tr>
-              <th>Wind speed</th>
-              <td id="wind"></td>
-            </tr>
-          </table>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <!-- News data -->
 <div class="modal fade" id="country_news" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header text-white" style="background-color: #2D3436;">
         <h5 class="modal-title">News</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="news_data">
        
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
 </div>
 <!-- Wiki data -->
 <div class="modal fade" id="country_wiki" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header  bg-secondary text-white">
         <h5 class="modal-title" id="name"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="wiki_i">
+      <div class="modal-body bg-light " id="wiki_i">
        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Currency data -->
 <div class="modal fade" id="currency" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header  bg-success text-white">
         <h5 class="modal-title">Current exchange rate</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
+      <div class="modal-body  bg-success " id="body_currency">
+        <table class="table table-striped  bg-secondary text-white" id="table_curr">
           <tr>
-            <th>Country Currency</th>
-            <td id="cur"></td>
+            <th style="color: white;">Country Currency</th>
+            <td id="cur" style="color: white;"></td>
           </tr>
           <tr>
             <th>Rate</th>
@@ -172,21 +191,20 @@
           </tr>
         </table>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
 </div>
 
 
 
-
+<script src="libs/js/jquery-2.2.3.min.js"> </script>
  <script src="libs/js/leaflet.js"></script> 
  <script src="dist/leaflet.markercluster.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
- <script src="libs/js/jquery-2.2.3.min.js"> </script>
+ <script src="leaflet/Leaflet.EasyButton-master/src/easy-button.js"></script> 
  <script src='bootstrap/js/bootstrap.min.js'></script>
+ <script src="https://kit.fontawesome.com/a95212fe6a.js" crossorigin="anonymous"></script>
+ <script type="text/javascript" src="Datejs-master/build/date.js"></script>
+ <script type="text/javascript" src="Datejs-master/build/extras.js"></script>
  <script src="libs/js/script.js"></script> 
 </body>
 </html>
