@@ -36,31 +36,14 @@ body{
               50% 50% no-repeat rgb(249,249,249);
 }
 
-
-
-.navbar{
-  background-color: black;
+#country_flag{
+   
+    height: 25vh;
+    width: 50vh;
 
 }
 
-.white {
-  color: #FFFFFF;
-}
-.navbar,.navbar-brand {
-  font-weight: bold;
-  font-size: 25px;
-  color: #FFFFFF;
-}
 
-
-
-#weather_image{
-height: 100px;
-width: 100px;
-position: absolute;
-top: -20px;
-left: 150px;
-}
 
 .info{
   font-size: 15px;
@@ -68,9 +51,7 @@ left: 150px;
 .news{
   font-size: 15px;
 }
-.weather{
-  font-size: 30px;
-}
+
 
 .leaflet-touch .leaflet-bar {
   border: 0px solid transparent;
@@ -89,4 +70,102 @@ left: 150px;
 }
 #summary{
   font-family: sans-serif;
+}
+
+.form-select{
+  position: absolute;
+  z-index: 401;
+  margin-top: 20px;
+  margin-left: 40%;
+}
+.leaflet-popup-content{
+  width: 125px;
+  font-size: 16px;
+
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #DFE6E9;
+  background-clip: border-box;
+  border: 5px solid #B2BEC3;
+  border-radius: 0.25rem;
+}
+#news_data {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+  background-color: #636E72;
+}
+#body_currency{
+  padding: 0rem;
+}
+
+#table_curr{
+  margin-bottom: 0rem;
+}
+
+#modal-info{
+  padding: 0rem;
+}
+
+#table-info{
+  margin-bottom: 0rem;
+}
+.carousel-indicators li {
+  background-color: #282828;
+  width: 7px;
+  height: 7px;
+
+  }
+
+  .gradient-custom {
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 236, 210, 1))
+    }
+
+    #weather_body {
+      background: #b0c8e1;
+  }
+  .mb-4 {
+     margin-bottom: 0rem!important; 
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #DFE6E9;
+  background-clip: border-box;
+  border-radius: 0.25rem;
+  border: 0px solid #B2BEC3;
+}
+
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 0rem;
+}
+
+.btn-close {
+  border: 3px solid #9d9d9d;
+  z-index: 1;
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: #000;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 9.5;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
 }
