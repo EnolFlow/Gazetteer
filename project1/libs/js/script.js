@@ -10,24 +10,14 @@ let country_code;
 
    
 
- map = L.map('map',{zooomcontrol:false,attributionControl: false}).setView([51.505, -0.09], 13);
+ map = L.map('map',{zooomcontrol:false}).setView([51.505, -0.09], 13);
+ map.attributionControl.addAttribution('<a href="https://leafletjs.com/">Alexandru Beraru</a>');
+
 
   layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}',
   {foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
 
   
-  L.easyButton( 'fa-info', function(){
-    $('#country_information').modal('show')  }).setPosition("bottomright").addTo(map);
-    L.easyButton( 'fa-newspaper', function(){
-      $('#country_news').modal('show')  }).setPosition("bottomright").addTo(map);
-      L.easyButton( 'fa-cloud', function(){
-        $('#country_weather').modal('show')  }).setPosition("bottomright").addTo(map);
-        L.easyButton( 'fa-wikipedia-w', function(){
-          $('#country_wiki').modal('show')  }).setPosition("bottomright").addTo(map);
-          L.easyButton( ' fa-dollar', function(){
-            $('#currency').modal('show')  }).setPosition("bottomright").addTo(map);
-
-
 
   L.control.scale().setPosition("bottomleft").addTo(map);
 map.zoomControl.setPosition("bottomleft");
@@ -85,22 +75,27 @@ wIcon = L.icon({
 });
 
 
- pinIcon = L.icon({
-  iconUrl: 'pin.png',
-
-  iconSize:     [32, 32], 
-  iconAnchor:   [16, 32], 
-  popupAnchor:  [0, -30] 
-});
 
 $(document).ready(function () {
   $("#loader").fadeOut("slow");;
   get_country_codes();
   findLocation();
-
+  buttons_ready()
 });
 
+function buttons_ready(){
+  L.easyButton( 'fa-info', function(){
+    $('#country_information').modal('show')  }).setPosition("bottomright").addTo(map);
+    L.easyButton( 'fa-newspaper', function(){
+      $('#country_news').modal('show')  }).setPosition("bottomright").addTo(map);
+      L.easyButton( 'fa-cloud', function(){
+        $('#country_weather').modal('show')  }).setPosition("bottomright").addTo(map);
+        L.easyButton( 'fa-wikipedia-w', function(){
+          $('#country_wiki').modal('show')  }).setPosition("bottomright").addTo(map);
+          L.easyButton( ' fa-dollar', function(){
+            $('#currency').modal('show')  }).setPosition("bottomright").addTo(map);
 
+          }
 
 
 function get_country_codes() {
@@ -120,18 +115,14 @@ function get_country_codes() {
 }
 
 
-  
 
 
 const findLocation = () => {
   
   const success = (position) => {
-    console.log(position)
+   
    const  latitude = position.coords.latitude;
   const   longitude = position.coords.longitude
-    L.marker([latitude, longitude], {icon: pinIcon})
-    .bindPopup("This is your Location").addTo(map);
-    L.circle([latitude, longitude], {radius: 50}).addTo(map);
 
           $.ajax({
           url: "libs/php/countryCodeLatLng.php",
@@ -142,6 +133,7 @@ const findLocation = () => {
           },
           success: function(result) {
          const country_code = result.data;
+         $('#country_list').val(country_code).change()
             country_border(country_code);
             country_information(country_code)
             
@@ -252,13 +244,17 @@ function earthquake_info(north,south,east,west) {
     success: function (result) {
       let earthquake = result.data
      for (let i = 0; i < earthquake.length; i++) {
+       let date = earthquake[i].datetime;
+     
      let marker = marker_e.addLayer(L.marker([earthquake[i].lat, earthquake[i].lng], {
         icon: earthquakeIcon,
       }).bindPopup(
-       "Datetime:"+ earthquake[i].datetime +
-       "<br>" + "Magnitude:" + earthquake[i].magnitude
+       "<b>Time: </b> "+ Date.parse(date).toString(" dS MMM yy") +
+       "<br>" + "<b>Magnitude:</b>  " + earthquake[i].magnitude +
+       "<br>" + "<b>Depth:</b>  "+ earthquake[i].depth + "km"
       )).addTo(map)
       earthquakes_pin.addLayer(marker);
+   
    
       }
    
@@ -275,21 +271,22 @@ function country_information(country_code) {
     },
     success: function (json) {
       let info  = $.parseJSON(json);
+    
      let infor = info[0];
      let currency = "";
      for (const x in infor.currencies) {
        currency += x ;
      }
-     lat = infor.latlng[0];
-     lng = infor.latlng[1];
+     lat = infor.capitalInfo.latlng[0];
+     lng = infor.capitalInfo.latlng[1];
      let country_capital = infor.capital[0].toLowerCase();
      let countryN = infor.name.common.split(" ").join("");
- 
-  
+     let population = infor.population
+
       $("#country_name").html(infor.name.common);
       $("#country_capital").html(infor.capital[0]);
-      $("#country_population").html(infor.population);
       $("#country_flag").attr("src", infor.flags.png);
+      $("#country_population").html(Intl.NumberFormat('en-IN', { maximumSignificantDigits: 8 }).format(population));
       $("#country_currency").html(currency);
       $("#country_wikipedia").attr(
         "href",
@@ -314,14 +311,35 @@ function weather_information(lat,lng) {
     success: function (json) {
       let winfo  = $.parseJSON(json);
     const icon = winfo.current.weather[0].icon;
+  
 
       $("#weather_image").attr("src", 'http://openweathermap.org/img/wn/' + icon + '@2x.png');
       $("#weather_descr").html(winfo.current.weather[0].description);
       $("#temp").html(winfo.current.temp + '°C');
-      $("#feels_like").html(winfo.current.feels_like+ '°C');
-      $("#humidity").html(winfo.current.humidity + '%');
-      $("#wind").html(winfo.current.wind_speed + 'meter/sec');
+      $("#weather_capi").html(winfo.timezone);
+
+      $("#tempmax").html(winfo.daily[0].temp.max + '°C');
+      $("#tempmin").html(winfo.daily[0].temp.min + '°C');
+      $("#weather_img").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[0].weather[0].icon + '@2x.png');
+      $("#today").html(Date.strftime("D", new Date(winfo.daily[1].dt)));
+
+       $("#tempmax2").html(winfo.daily[1].temp.max + '°C');
+      $("#tempmin2").html(winfo.daily[1].temp.min + '°C');
+      $("#weather_img2").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[1].weather[0].icon + '@2x.png');
+      $("#today2").html(Date.strftime("D", new Date(winfo.daily[2].dt)));
+
+      $("#tempmax3").html(winfo.daily[2].temp.max + '°C');
+      $("#tempmin3").html(winfo.daily[2].temp.min + '°C');
+      $("#weather_img3").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[2].weather[0].icon + '@2x.png');
+      $("#today3").html(Date.strftime("D", new Date(winfo.daily[3].dt)));
+
+      $("#tempmax4").html(winfo.daily[3].temp.max + '°C');
+      $("#tempmin4").html(winfo.daily[3].temp.min + '°C');
+      $("#weather_img4").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[3].weather[0].icon + '@2x.png');
+      $("#today4").html(Date.strftime("D", new Date(winfo.daily[4].dt)));
+
      
+
     },
   });
 }
@@ -351,12 +369,12 @@ function news_card(data) {
     '<div class="card"> <img class="card-img-top" src="' +
     data.urlToImage +
     '" alt="News Image"> <div class="card-body"> <h5 class="card-title">' +
-    data.author +
-    '</h5> <p class="card-text">' +
     data.title +
+    '</h5> <p class="card-text">' +
+    data.description +
     '</p> <a href="' +
     data.url +
-    '" target="_blank" class="btn btn-primary">Details</a> </div> </div>';
+    '" target="_blank" class="btn btn-secondary">' + data.source.name +'</a> </div> </div>';
   return card;
 }
 
@@ -392,7 +410,7 @@ function currency_exchange(currency) {
      if (keys[i][0] == currency) {
        let val = keys[i][1]
        $("#cur").html(keys[i][0] );
-       $("#rate").html(val );
+       $("#rate").html(Intl.NumberFormat('de-DE', { style: 'currency', currency: keys[i][0] }).format(val) );
      }
     }
     },
