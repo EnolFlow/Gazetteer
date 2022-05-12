@@ -35,11 +35,10 @@ body{
   background: url('//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Phi_fenomeni.gif/50px-Phi_fenomeni.gif') 
               50% 50% no-repeat rgb(249,249,249);
 }
-
-#country_flag{
-   
-    height: 25vh;
-    width: 50vh;
+#country_flag {
+ 
+  height: 8vh;
+  width: 16vh;
 
 }
 
@@ -114,6 +113,7 @@ body{
 }
 
 #table-info{
+  border-radius: 18px;
   margin-bottom: 0rem;
 }
 .carousel-indicators li {
@@ -168,4 +168,27 @@ body{
 p {
   margin-top: 0;
   margin-bottom: 0rem;
+}
+
+#wiki_i{
+  
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+
+}
+
+.card-title {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.card-body {
+  flex: 1 1 auto;
+  padding: 0rem 0rem;
+}
+#img_info{
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  display: block;
 }
