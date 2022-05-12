@@ -49,13 +49,7 @@ let  wikipedia_pin = new L.FeatureGroup();
          .openOn(map)
  }
 
-map.on('click', onMapClick);
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-}
+
 
 earthquakeIcon = L.icon({
   iconUrl: 'earthquake.png',
@@ -73,13 +67,20 @@ wIcon = L.icon({
   popupAnchor:  [0, -35] 
 });
 
-
+let images = new Array();
+function preLoader() {
+ for (var i = 0; i < images.length; i++) {
+     let tempImage = new Image();           
+     tempImage.src = images[i];
+ }
+}
 
 $(document).ready(function () {
-  $("#loader").fadeOut("slow");
   findLocation();
   get_country_codes();
   buttons_ready();
+  preLoader();
+  $("#loader").fadeOut("slow");
 });
 
 function buttons_ready(){
@@ -217,7 +218,11 @@ function wikipedia_info(north,south,east,west) {
     },
     success: function (result) {
      let data = result.data
+    
      for (let i = 0; i < data.length; i++) {
+      images.push(data[i].thumbnailImg);
+      
+     
      let marker = marker_w.addLayer(L.marker([data[i].lat, data[i].lng], {
         icon: wIcon,
       }).bindPopup(
@@ -232,8 +237,13 @@ function wikipedia_info(north,south,east,west) {
         "' target='_blank'>Wikipedia Link</a>"
       )).addTo(map)
       wikipedia_pin.addLayer(marker);
-     
-      }
+     }
+
+
+
+
+
+
     }
   })
 }
@@ -327,31 +337,30 @@ function weather_information(lat,lng,country_capitall) {
     success: function (json) {
       let winfo  =  JSON.parse(json);
     const icon = winfo.current.weather[0].icon;
-    
 
    
       $("#weather_image").attr("src", 'http://openweathermap.org/img/wn/' + icon + '@2x.png');
       $("#weather_descr").html(winfo.current.weather[0].description);
-      $("#temp").html(winfo.current.temp + '°C');
+      $("#temp").html(parseInt(winfo.current.temp) + '°C');
       $("#weather_capi").html(country_capitall);
 
-      $("#tempmax").html(winfo.daily[0].temp.max + '°C');
-      $("#tempmin").html(winfo.daily[0].temp.min + '°C');
+      $("#tempmax").html(parseInt(winfo.daily[0].temp.max) + '°C');
+      $("#tempmin").html(parseInt(winfo.daily[0].temp.min) + '°C');
       $("#weather_img").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[0].weather[0].icon + '@2x.png');
       $("#today").html(Date.strftime("D", new Date(winfo.daily[1].dt)));
 
-       $("#tempmax2").html(winfo.daily[1].temp.max + '°C');
-      $("#tempmin2").html(winfo.daily[1].temp.min + '°C');
+       $("#tempmax2").html(parseInt(winfo.daily[1].temp.max) + '°C');
+      $("#tempmin2").html(parseInt(winfo.daily[1].temp.min) + '°C');
       $("#weather_img2").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[1].weather[0].icon + '@2x.png');
       $("#today2").html(Date.strftime("D", new Date(winfo.daily[2].dt)));
 
-      $("#tempmax3").html(winfo.daily[2].temp.max + '°C');
-      $("#tempmin3").html(winfo.daily[2].temp.min + '°C');
+      $("#tempmax3").html(parseInt(winfo.daily[2].temp.max) + '°C');
+      $("#tempmin3").html(parseInt(winfo.daily[2].temp.min) + '°C');
       $("#weather_img3").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[2].weather[0].icon + '@2x.png');
       $("#today3").html(Date.strftime("D", new Date(winfo.daily[3].dt)));
 
-      $("#tempmax4").html(winfo.daily[3].temp.max + '°C');
-      $("#tempmin4").html(winfo.daily[3].temp.min + '°C');
+      $("#tempmax4").html(parseInt(winfo.daily[3].temp.max) + '°C');
+      $("#tempmin4").html(parseInt(winfo.daily[3].temp.min) + '°C');
       $("#weather_img4").attr("src", 'http://openweathermap.org/img/wn/' + winfo.daily[3].weather[0].icon + '@2x.png');
       $("#today4").html(Date.strftime("D", new Date(winfo.daily[4].dt)));
 
