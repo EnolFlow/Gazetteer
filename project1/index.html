@@ -19,8 +19,8 @@
   <body>
     <div id="loader"></div>
     
-        <select class="form-select form-select-md w-25 shadow-lg " id="country_list" onchange="zoomToCountry()" style="text-align: center;">
-          <option value="" >Select Country</option>
+        <select class="form-select form-select-md w-25 shadow-lg " id="country_list"  style="text-align: center;">  
+          <option value="" id="country_default" hidden></option>
         </select>
   
 <div id="map-holder">
@@ -32,37 +32,54 @@
 <div class="modal fade" id="country_information" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header bg-primary" style="text-align: center;">
-        <h5 class="modal-title text-white" id="country_name" ></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
+
       <div class="modal-body" id="modal-info">
-        <table class="table table-striped" id="table-info" >
-          <tr>
-            <th><i class="fa-solid fa-city"></i></th>
-            <td id="country_capital"></td>
-          </tr>
-          <tr>
-            <td colspan="2" >
-              <img src=""  id="country_flag" />
-            </td>
-          </tr>
-          <tr>
-            <th><i class="fa-solid fa-person"></i></th>
-            <td id="country_population"></td>
-          </tr>
-          <tr>
-            <th><i class="fa-solid fa-wallet"></i></th>
-            <td id="country_currency"></td>
-          </tr>
-          <tr>
-            <th>Wikipedia Page</th>
-            <td >
-              <button type="button" class="btn btn-primary "><a href="" target="_blank" class="text-dark" id="country_wikipedia" ><b class="text-white">Click Here</b></a></button>
-            </td>
-          </tr>
-        </table>
-        
+        <div class="card" style="background-color: darkred;">
+          <img src="" alt="" class="card-img-top" id="img_info">
+          <div class="card-body">
+          <table class="table table-striped bg-white" id="table-info">
+         <thead>
+           <tr>
+             <th colspan="2"><h5 class="card-title bg-white" id="country_name" style="color:red;"></h5> </th>
+           </tr>
+         </thead>
+         <tbody>
+            <tr>
+              <td style="font-weight: bold;">🚩 Flag</td>
+              <td style="text-align: end;"> <img src="" alt=""  id="country_flag"></td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">📍 Capital</td>
+              <td style="text-align: end;" id="country_capital"></td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">🗺️ Continent</td>
+              <td style="text-align: end;" id="country_continent"></td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">🧑‍🤝‍🧑 Population</td>
+              <td style="text-align: end;" id="country_population"></td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">💲 Currency</td>
+              <td style="text-align: end;" id="country_currency"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td style="font-weight: bold;"><i class="fa-brands fa-wikipedia-w"></i>ikipedia</td>
+              <td style="text-align: end;"> <a href="" target="_blank" class="btn btn-outline-success btn-sm " id="country_wikipedia" >Read More</a>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+
+
+
+          </div>
+          </div>
+              
       </div>
     </div>
   </div>
@@ -77,11 +94,6 @@
       
               <div class="card mb-4 gradient-custom">
                 <div class="card-body p-4">
-      
-                  <div id="demo1" class="carousel slide" data-ride="carousel">
-                    <!-- Carousel inner -->
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
                         <div class="d-flex justify-content-between mb-4 pb-2">
                           <div>
                             <h2 class="display-2" id="temp"><strong></strong></h2>
@@ -97,16 +109,10 @@
                     </div>
                   </div>
       
-                </div>
-              </div>
-      
-             
-      
+ 
               <div class="card"">
                 <div class="card-body p-4">
-                    <!-- Carousel inner -->
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
+                   
                         <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
                           <div class="flex-column">
                             <strong><p class="small" id="tempmax"></p></strong>
@@ -141,8 +147,7 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+ 
 <!-- News data -->
 <div class="modal fade" id="country_news" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -186,8 +191,12 @@
             <td id="cur" style="color: white;"></td>
           </tr>
           <tr>
-            <th>Rate</th>
+            <th>Country Rate</th>
             <td id="rate"></td>
+          </tr>
+          <tr>
+            <th style="color: white;">Dollar Rate</th>
+            <td id="rate_dol" style="color: white;"></td>
           </tr>
         </table>
       </div>
